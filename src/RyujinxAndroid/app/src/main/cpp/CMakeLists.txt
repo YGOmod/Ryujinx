@@ -75,3 +75,11 @@ if (NOT (EXISTS ${LIBCRYPTO_JNI_PATH} AND EXISTS ${LIBSSL_JNI_PATH}))
     include(../../../../libryujinx/libs/OpenSSL.cmake)
     add_dependencies(ryujinxjni openssl)
 endif ()
+
+# Add OpenAL
+add_subdirectory(libraries/openal)
+set_target_properties(OpenAL PROPERTIES
+    LIBRARY_OUTPUT_DIRECTORY ${JNI_PATH}
+    ARCHIVE_OUTPUT_DIRECTORY ${JNI_PATH}
+    RUNTIME_OUTPUT_DIRECTORY ${JNI_PATH}
+)
