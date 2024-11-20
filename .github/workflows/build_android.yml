@@ -46,6 +46,11 @@ jobs:
           cd src/RyujinxAndroid
           chmod +x gradlew
           ./gradlew --stacktrace assembleRelease
+        env:
+          ANDROID_KEYSTORE_FILE: ks.jks
+          ANDROID_KEY_ALIAS: ${{ secrets.ANDROID_KEY_ALIAS }}
+          ANDROID_KEYSTORE_PASS: ${{ secrets.ANDROID_KEYSTORE_PASS }}
+          GITHUB_TOKEN: ${{ secrets.BUILD }}
 
       # Step 7: Upload APK artifact
       - name: Upload APK Artifact
