@@ -1,12 +1,9 @@
 name: Build Android
 
 on:
-  workflow_dispatch:
-    inputs:
-      branch:
-        description: 'select branch to build'
-        required: false
-        default: 'libryujinx_bionic'
+  push:
+    branches:
+      - libryujinx_bionic
 
 jobs:
   build:
