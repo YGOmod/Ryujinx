@@ -8,7 +8,8 @@ import java.util.Collections
 
 interface RyujinxNativeJna : Library {
     fun deviceInitialize(
-        isHostMapped: Boolean, useNce: Boolean,
+        isHostMapped: Boolean,
+        useNce: Boolean,
         systemLanguage: Int,
         regionCode: Int,
         enableVsync: Boolean,

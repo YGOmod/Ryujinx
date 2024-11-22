@@ -75,8 +75,7 @@ class SettingsViewModel(var navController: NavHostController, val activity: Main
         enablePtc.value = sharedPref.getBoolean("enablePtc", true)
         ignoreMissingServices.value = sharedPref.getBoolean("ignoreMissingServices", false)
         enableShaderCache.value = sharedPref.getBoolean("enableShaderCache", true)
-        enableTextureRecompression.value =
-            sharedPref.getBoolean("enableTextureRecompression", false)
+        enableTextureRecompression.value = sharedPref.getBoolean("enableTextureRecompression", false)
         resScale.value = sharedPref.getFloat("resScale", 1f)
         useVirtualController.value = sharedPref.getBoolean("useVirtualController", true)
         isGrid.value = sharedPref.getBoolean("isGrid", true)
@@ -156,15 +155,9 @@ class SettingsViewModel(var navController: NavHostController, val activity: Main
         RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.Debug.ordinal, enableDebugLogs.value)
         RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.Info.ordinal, enableInfoLogs.value)
         RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.Stub.ordinal, enableStubLogs.value)
-        RyujinxNative.jnaInstance.loggingSetEnabled(
-            LogLevel.Warning.ordinal,
-            enableWarningLogs.value
-        )
+        RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.Warning.ordinal, enableWarningLogs.value)
         RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.Error.ordinal, enableErrorLogs.value)
-        RyujinxNative.jnaInstance.loggingSetEnabled(
-            LogLevel.AccessLog.ordinal,
-            enableAccessLogs.value
-        )
+        RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.AccessLog.ordinal, enableAccessLogs.value)
         RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.Guest.ordinal, enableGuestLogs.value)
         RyujinxNative.jnaInstance.loggingSetEnabled(LogLevel.Trace.ordinal, enableTraceLogs.value)
         RyujinxNative.jnaInstance.loggingEnabledGraphicsLog(enableGraphicsLogs.value)
@@ -188,17 +181,21 @@ class SettingsViewModel(var navController: NavHostController, val activity: Main
                 activity.storageHelper!!.onFileSelected = previousFileCallback
                 val file = files.firstOrNull()
                 file?.apply {
-                    if (name == "prod.keys") {
-                        val outputFile = File(MainActivity.AppPath + "/system")
+                    // Define the output file
+                    val outputFile = File(MainActivity.AppPath + "/system/prod.keys")
+                    
+                    // Delete the existing file if it exists
+                    if (outputFile.exists()) {
                         outputFile.delete()
-
-                        thread {
-                            file.copyFileTo(
-                                activity,
-                                outputFile,
-                                callback = object : FileCallback() {
-                                })
-                        }
+                    }
+    
+                    // Copy the selected file to the output location with the defined name
+                    thread {
+                        file.copyFileTo(
+                            activity,
+                            outputFile,
+                            callback = object : FileCallback() {
+                            })
                     }
                 }
             }
