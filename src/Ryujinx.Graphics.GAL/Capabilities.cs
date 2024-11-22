@@ -71,6 +71,7 @@ namespace Ryujinx.Graphics.GAL
         public readonly int TextureBufferOffsetAlignment;
 
         public readonly int GatherBiasPrecision;
+        public readonly ulong MaximumGpuMemory;
 
         public Capabilities(
             TargetApi api,
@@ -133,7 +134,8 @@ namespace Ryujinx.Graphics.GAL
             int shaderSubgroupSize,
             int storageBufferOffsetAlignment,
             int textureBufferOffsetAlignment,
-            int gatherBiasPrecision)
+            int gatherBiasPrecision,
+            ulong maximumGpuMemory)
         {
             Api = api;
             VendorName = vendorName;
@@ -196,6 +198,7 @@ namespace Ryujinx.Graphics.GAL
             StorageBufferOffsetAlignment = storageBufferOffsetAlignment;
             TextureBufferOffsetAlignment = textureBufferOffsetAlignment;
             GatherBiasPrecision = gatherBiasPrecision;
+            MaximumGpuMemory = maximumGpuMemory;
         }
     }
 }
