@@ -47,6 +47,7 @@ class GameHost(context: Context?, private val mainViewModel: MainViewModel) : Su
     }
 
     override fun surfaceCreated(holder: SurfaceHolder) {
+        // no-op
     }
 
     fun setProgress(info : String, progressVal: Float) {
@@ -87,7 +88,7 @@ class GameHost(context: Context?, private val mainViewModel: MainViewModel) : Su
     }
 
     override fun surfaceDestroyed(holder: SurfaceHolder) {
-
+        // no-op
     }
 
     fun close() {

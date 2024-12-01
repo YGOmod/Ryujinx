@@ -130,8 +130,10 @@ class MotionSensorManager(val activity: MainActivity) : SensorEventListener2 {
     }
 
     override fun onAccuracyChanged(sensor: Sensor?, accuracy: Int) {
+        // no-op
     }
 
     override fun onFlushCompleted(sensor: Sensor?) {
+        // no-op
     }
 }
