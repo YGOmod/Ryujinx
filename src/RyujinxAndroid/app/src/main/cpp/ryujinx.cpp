@@ -55,7 +55,10 @@ long createSurface(long native_surface, long instance) {
                                                                                   "vkCreateAndroidSurfaceKHR"));
     if (!fpCreateAndroidSurfaceKHR)
         return -1;
-    VkAndroidSurfaceCreateInfoKHR info = {VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR};
+    VkAndroidSurfaceCreateInfoKHR info = {};
+    info.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
+    info.pNext = nullptr;
+    info.flags = 0;
     info.window = nativeWindow;
     VK_CHECK(fpCreateAndroidSurfaceKHR(vkInstance, &info, nullptr, &surface));
     return (long) surface;
@@ -73,7 +76,7 @@ char *getStringPointer(
         jstring jS) {
     const char *cparam = env->GetStringUTFChars(jS, 0);
     auto len = env->GetStringUTFLength(jS);
-    char *s = new char[len];
+    char *s = new char[len + 1]; //null terminator
     strcpy(s, cparam);
     env->ReleaseStringUTFChars(jS, cparam);
 
@@ -110,7 +113,7 @@ extern "C"
 JNIEXPORT void JNICALL
 Java_org_ryujinx_android_MainActivity_initVm(JNIEnv *env, jobject thiz) {
     JavaVM *vm = nullptr;
-    auto success = env->GetJavaVM(&vm);
+    env->GetJavaVM(&vm);
     _vm = vm;
     _mainActivity = thiz;
     _mainActivityClass = env->GetObjectClass(thiz);
