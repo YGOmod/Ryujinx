@@ -181,22 +181,18 @@ class SettingsViewModel(var navController: NavHostController, val activity: Main
                 activity.storageHelper!!.onFileSelected = previousFileCallback
                 val file = files.firstOrNull()
                 file?.apply {
-                    val outputDirectory = File(MainActivity.AppPath + "/system")
+                    if (name == "prod.keys") {
+                        val outputFile = File(MainActivity.AppPath + "/system")
+                        outputFile.delete()
 
-                    if (!outputDirectory.exists()) {
-                        outputDirectory.mkdirs()
-                    }
-
-                    val outputFile = File(outputDirectory, "prod.keys")
-                    outputFile.delete()
-
-                    thread {
-                        file.copyFileTo(
-                            activity,
-                            outputFile,
-                            callback = object : FileCallback() {
-                            }
-                        )
+                        thread {
+                            file.copyFileTo(
+                                activity,
+                                outputFile,
+                                callback = object : FileCallback() {
+                                }
+                            )
+                        }
                     }
                 }
             }
