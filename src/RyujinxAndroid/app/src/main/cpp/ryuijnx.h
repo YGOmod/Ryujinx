@@ -24,11 +24,11 @@
 // Android log function wrappers
 static const char* TAG = "Ryujinx";
 #define LOGI(...) \
-  ((void)__android_log_print(ANDROID_LOG_INFO, kTAG, __VA_ARGS__))
+  ((void)__android_log_print(ANDROID_LOG_INFO, TAG, __VA_ARGS__))
 #define LOGW(...) \
-  ((void)__android_log_print(ANDROID_LOG_WARN, kTAG, __VA_ARGS__))
+  ((void)__android_log_print(ANDROID_LOG_WARN, TAG, __VA_ARGS__))
 #define LOGE(...) \
-  ((void)__android_log_print(ANDROID_LOG_ERROR, kTAG, __VA_ARGS__))
+  ((void)__android_log_print(ANDROID_LOG_ERROR, TAG, __VA_ARGS__))
 
 // A macro to pass call to Vulkan and check for return value for success
 #define CALL_VK(func)                                                 \
