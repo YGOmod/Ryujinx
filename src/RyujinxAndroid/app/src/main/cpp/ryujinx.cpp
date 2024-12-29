@@ -53,9 +53,10 @@ long createSurface(long native_surface, long instance) {
     auto fpCreateAndroidSurfaceKHR =
             reinterpret_cast<PFN_vkCreateAndroidSurfaceKHR>(vkGetInstanceProcAddr(vkInstance,
                                                                                   "vkCreateAndroidSurfaceKHR"));
-    if (!fpCreateAndroidSurfaceKHR)
-        return -1;
-    VkAndroidSurfaceCreateInfoKHR info = {};
+    if (fpCreateAndroidSurfaceKHR == nullptr)
+        LOGE("Could not get function pointer to CreateAndroidSurfaceKHR");
+
+    VkAndroidSurfaceCreateInfoKHR info;
     info.sType = VK_STRUCTURE_TYPE_ANDROID_SURFACE_CREATE_INFO_KHR;
     info.pNext = nullptr;
     info.flags = 0;

@@ -345,7 +345,9 @@ namespace Ryujinx.HLE.HOS.Kernel.Process
             _entrypoint = creationInfo.CodeAddress + Context.ReservedSize;
             _imageSize = (ulong)creationInfo.CodePagesCount * KPageTableBase.PageSize;
 
-            switch (Flags & ProcessCreationFlags.AddressSpaceMask)
+            // 19.0.0+ sets all regions to same size
+            _memoryUsageCapacity = MemoryManager.HeapRegionEnd - MemoryManager.HeapRegionStart;
+            /*switch (Flags & ProcessCreationFlags.AddressSpaceMask)
             {
                 case ProcessCreationFlags.AddressSpace32Bit:
                 case ProcessCreationFlags.AddressSpace64BitDeprecated:
@@ -362,7 +364,7 @@ namespace Ryujinx.HLE.HOS.Kernel.Process
                     break;
                 default:
                     throw new InvalidOperationException($"Invalid MMU flags value 0x{Flags:x2}.");
-            }
+            }*/
 
             GenerateRandomEntropy();
 

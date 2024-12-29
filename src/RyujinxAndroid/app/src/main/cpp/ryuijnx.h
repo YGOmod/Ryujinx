@@ -21,6 +21,15 @@
 #include "adrenotools/driver.h"
 #include "native_window.h"
 
+// Android log function wrappers
+static const char* TAG = "Ryujinx";
+#define LOGI(...) \
+  ((void)__android_log_print(ANDROID_LOG_INFO, kTAG, __VA_ARGS__))
+#define LOGW(...) \
+  ((void)__android_log_print(ANDROID_LOG_WARN, kTAG, __VA_ARGS__))
+#define LOGE(...) \
+  ((void)__android_log_print(ANDROID_LOG_ERROR, kTAG, __VA_ARGS__))
+
 // A macro to pass call to Vulkan and check for return value for success
 #define CALL_VK(func)                                                 \
   if (VK_SUCCESS != (func)) {                                         \
@@ -36,10 +45,10 @@
 
 #define LoadLib(a) dlopen(a, RTLD_NOW)
 
-void *_ryujinxNative = NULL;
+void *_ryujinxNative = nullptr;
 
 // Ryujinx imported functions
-bool (*initialize)(char *) = NULL;
+bool (*initialize)(char *) = nullptr;
 
 long _renderingThreadId = 0;
 JavaVM *_vm = nullptr;

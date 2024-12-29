@@ -92,8 +92,9 @@ namespace LibRyujinx
         public static GameStats GetGameStats()
         {
             if (SwitchDevice?.EmulationContext == null)
+            {
                 return new GameStats();
-
+            }
             var context = SwitchDevice.EmulationContext;
 
             return new GameStats
@@ -623,7 +624,9 @@ namespace LibRyujinx
         public static List<string> GetDlcContentList(string path, ulong titleId)
         {
             if (!File.Exists(path))
+            {
                 return new List<string>();
+            }
 
             using FileStream containerFile = File.OpenRead(path);
 
@@ -770,7 +773,7 @@ namespace LibRyujinx
                                                                   timeZone,
                                                                   isHostMapped ? MemoryManagerMode.HostMappedUnsafe : MemoryManagerMode.SoftwarePageTable,
                                                                   ignoreMissingServices,
-                                                                   LibRyujinx.GraphicsConfiguration.AspectRatio,
+                                                                  LibRyujinx.GraphicsConfiguration.AspectRatio,
                                                                   100,
                                                                   useHypervisor,
                                                                   "",
