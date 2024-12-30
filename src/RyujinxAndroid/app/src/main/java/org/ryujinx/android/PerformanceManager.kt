@@ -8,9 +8,10 @@ class PerformanceManager(private val activity: MainActivity) {
         fun force60HzRefreshRate(enable: Boolean, activity: MainActivity) {
             // Hack for MIUI devices since they don't support the standard Android APIs
             try {
-                val setFpsIntent = Intent("com.miui.powerkeeper.SET_ACTIVITY_FPS")
-                setFpsIntent.putExtra("package_name", "org.ryujinx.android")
-                setFpsIntent.putExtra("isEnter", enable)
+                val setFpsIntent = Intent("com.miui.powerkeeper.SET_ACTIVITY_FPS").apply {
+                    putExtra("package_name", "org.ryujinx.android")
+                    putExtra("isEnter", enable)
+                }
                 activity.sendBroadcast(setFpsIntent)
             } catch (_: Exception) {
             }

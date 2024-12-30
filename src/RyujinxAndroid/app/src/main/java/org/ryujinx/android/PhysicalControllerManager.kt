@@ -23,16 +23,16 @@ class PhysicalControllerManager(val activity: MainActivity) {
                     }
                 }
                 return true
-            } else if (!isNotFallback) {
+            } //else if (!isNotFallback) {
                 return true
-            }
+//            }
         }
 
         return false
     }
 
     fun onMotionEvent(ev: MotionEvent) {
-        if (true) {
+//        if (true) {
             if (ev.action == MotionEvent.ACTION_MOVE) {
                 val leftStickX = ev.getAxisValue(MotionEvent.AXIS_X)
                 val leftStickY = ev.getAxisValue(MotionEvent.AXIS_Y)
@@ -121,7 +121,7 @@ class PhysicalControllerManager(val activity: MainActivity) {
                     }
                 }
             }
-        }
+//        }
     }
 
     fun connect(): Int {

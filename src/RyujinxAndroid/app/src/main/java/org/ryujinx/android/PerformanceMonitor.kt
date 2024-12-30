@@ -2,6 +2,7 @@ package org.ryujinx.android
 
 import android.app.ActivityManager
 import android.content.Context.ACTIVITY_SERVICE
+import android.util.Log
 import androidx.compose.runtime.MutableState
 import java.io.RandomAccessFile
 
@@ -10,18 +11,15 @@ class PerformanceMonitor {
 
     fun getFrequencies(frequencies: MutableList<Double>){
         frequencies.clear()
-        for (i in 0..<numberOfCores) {
+        for (i in 0 until numberOfCores) {
             var freq = 0.0
             try {
-                val reader = RandomAccessFile(
-                    "/sys/devices/system/cpu/cpu${i}/cpufreq/scaling_cur_freq",
-                    "r"
-                )
-                val f = reader.readLine()
-                reader.close()
-                freq = f.toDouble() / 1000.0
+                RandomAccessFile("/sys/devices/system/cpu/cpu${i}/cpufreq/scaling_cur_freq", "r").use { reader->
+                    val f = reader.readLine()
+                    freq = f.toDouble() / 1000.0
+                }
             } catch (e: Exception) {
-
+                Log.e("Performance Monitor", "Failed to read CPU freq", e);
             }
 
             frequencies.add(freq)
